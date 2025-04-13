@@ -140,8 +140,9 @@ numberRange
  ;
 
 value
- : String | Number | Column | Bool
+ : String | Number | Column | Bool | BYTE_SIZE | TIME_DURATION
  ;
+
 
 ecommand
  : '!' Identifier
@@ -272,6 +273,25 @@ Column
 String
  : '\'' ( EscapeSequence | ~('\'') )* '\''
  | '"'  ( EscapeSequence | ~('"') )* '"'
+ ;
+ BYTE_SIZE
+ : DIGITS BYTE_UNIT
+ ;
+
+TIME_DURATION
+ : DIGITS TIME_UNIT
+ ;
+
+fragment DIGITS
+ : [0-9]+ ('.' [0-9]+)?
+ ;
+
+fragment BYTE_UNIT
+ : [kK][bB]? | [mM][bB]? | [gG][bB]? | [tT][bB]?
+ ;
+
+fragment TIME_UNIT
+ : 'ms' | 's' | 'm' | 'h'
  ;
 
 EscapeSequence
